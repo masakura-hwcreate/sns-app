@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { SessionContext } from "../SessionProvider";
 import { Navigate } from "react-router-dom";
+import { SideMenu } from "../components/sidemenu";
 
 function Home() {
     const {currentUser} = useContext(SessionContext);
@@ -28,6 +29,7 @@ function Home() {
                 </div>
                 <div className="mt-4"></div>
             </div>
+            <SideMenu />
             </div>
         </div>
         </div>
