@@ -3,6 +3,7 @@ import { SessionContext } from "../SessionProvider";
 import { Navigate } from "react-router-dom";
 import { SideMenu } from "../components/SideMenu";
 import { postRepository } from "../repositories/Post";
+import { Post } from "../components/Post";
 
 function Home() {
     const[content, setContent] = useState('');
@@ -15,12 +16,17 @@ function Home() {
 
     const createPost = async () => {
         const post = await postRepository.create(content, currentUser.id);
-        console.log(post)
+        setPosts([
+            {
+                ...post, userId: currentUser.id, userName: currentUser.name
+            },
+            ...posts,
+        ]);
         setContent('');
     };
 
     const fetchPosts = async () => {
-        postRepository.find();
+        const posts = await postRepository.find();
         setPosts(posts);
     }
     
@@ -52,7 +58,11 @@ function Home() {
                     Post
                 </button>
                 </div>
-                <div className="mt-4"></div>
+                <div className="mt-4">
+                    {posts.map((post) => (
+                        <Post key={post.id} post={post} />
+                    ))}
+                </div>
             </div>
             <SideMenu />
             </div>

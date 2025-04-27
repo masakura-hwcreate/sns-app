@@ -22,7 +22,7 @@ export const postRepository = {
             return {
                 ...post,
                 userId: post.user_id,
-                userName: post.use_metadata.name,
+                userName: post.user_metadata.name,
             };
         }); 
 

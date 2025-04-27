@@ -19,7 +19,7 @@ export const authRepository = {
             password
         });
         if(error != null) throw new Error(error.message);
-        console.log(data);
+        // console.log(data);
         return  {
             ...data.user,
             userName: data.user.user_metadata.name,
@@ -30,7 +30,7 @@ export const authRepository = {
         if(error != null) throw new Error(error.message);
         if(data.session == null) return;
 
-        console.log(data.session);
+        // console.log(data.session);
         return { 
             ...data.session.user,
             userName: data.session.user.user_metadata.name,
