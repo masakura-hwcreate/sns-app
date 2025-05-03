@@ -6,8 +6,29 @@ import { SessionContext } from "../SessionProvider";
 function Signup() {
     const[name, setName] = useState('');
     const[email, setEmail] = useState('');
+    const [emailError, setEmailError] = useState("");
     const[password, setPassword] = useState('');
     const {currentUser, setCurrentUser} = useContext(SessionContext);
+
+    const handleEmailChange = (e) => {
+        const value = e.target.value;
+        setEmail(value);
+    };
+
+    const validateEmail = (value) => {
+        if (!value) {
+            return "メールアドレスを入力してください";
+        } else if (!value.includes("@")) {
+            return "正しいメールアドレスの形式にしてください";
+        } else {
+            return "";
+        }
+    };
+
+    const handleEmailBlur = () => {
+        const error = validateEmail(email);
+        setEmailError(error);
+    };
 
     const signup = async () => {
         const user = await authRepository.signup(name, email, password);
@@ -51,7 +72,9 @@ function Signup() {
                     </label>
                     <div className="mt-1">
                     <input
-                        onChange={(e)=> setEmail(e.target.value)}
+                        // onChange={(e)=> setEmail(e.target.value)}
+                        onChange={handleEmailChange}
+                        onBlur={handleEmailBlur}
                         id="email"
                         name="email"
                         placeholder="メールアドレス"
@@ -59,6 +82,9 @@ function Signup() {
                         type="email"
                         className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                     />
+                    {emailError && (
+                        <p className="text-red-500 text-sm mt-1">{emailError}</p>
+                    )}
                     </div>
                 </div>
                 <div>

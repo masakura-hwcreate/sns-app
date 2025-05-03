@@ -4,6 +4,7 @@ import Signup from "../pages/Signup";
 
 export const authRepository = {
     async signup (name, email, password) {
+        
         const {data, error} = await supabase.auth.signUp({
             email,
             password,

@@ -11,8 +11,8 @@ const limit = 5;
 
 function Home() {
     const[content, setContent] = useState('');
-    const[posts,setPosts] = useState([])
-    const[page,setPage] = useState(1)
+    const[posts,setPosts] = useState([]);
+    const[page,setPage] = useState(1);
     const {currentUser, setCurrentUser} = useContext(SessionContext);
 
     useEffect(() => {
@@ -40,6 +40,7 @@ function Home() {
         await fetchPosts(nextPage);
         setPage(nextPage);
     }
+
     const moveToPrev = async () => {
         const prevPage = page - 1;
         await fetchPosts(prevPage);
